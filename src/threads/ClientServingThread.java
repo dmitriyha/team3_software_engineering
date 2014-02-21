@@ -21,9 +21,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Database.UserDatabase;
+
 public class ClientServingThread implements Runnable{
 
-	private static final String HTML_PATH = "C:\\HTML";
+	private static final String HTML_PATH = "HTML";
 	private Map<String, String> requestParameters = new HashMap<>();
 	private Map<String, String> formParameters = new HashMap<>();
 	private Map<String, String> pageParameters = new HashMap<>();
@@ -37,7 +39,7 @@ public class ClientServingThread implements Runnable{
 	// Make sure to implement some mechanism to avoid deadlocks, as
 	// threads may share resources such as html files and tags
 	
-	public ClientServingThread(Socket output)  {
+	public ClientServingThread(Socket output, UserDatabase users)  {
 		socket=output;
 		Thread t=new Thread(this);
 		t.start();
@@ -51,7 +53,6 @@ public class ClientServingThread implements Runnable{
 	private void doWork() {
 		// Open streams for input and for output
 		// Use a try-with-resources
-		
 		try {
 			
 			PrintWriter writer = new PrintWriter(
@@ -68,7 +69,7 @@ public class ClientServingThread implements Runnable{
 			Path path = getRequestedFile(line);
 			
 			// Still from the first line,  read the GET parameters (if any)
-			getGetParameters(line);
+			pageParameters=getGetParameters(line);
 			
 			// Read the (general) request parameters and put them in the Map
 			requestParameters=getRequestParameters(reader);
@@ -179,14 +180,28 @@ public class ClientServingThread implements Runnable{
 	private Map<String, String> getGetParameters(String inputLine) {
 		// Get the GET parameters from the first line of the header
 		// To be implemented in a later iteration
+		String splitParam[];
+		String splitLine[];
+		inputLine=inputLine.replace("HTTP/1.1", "");
+		inputLine=inputLine.replace("GET ", "");
+		Map<String, String> params=new HashMap<>();
 		
-		if(inputLine.contains("?") && inputLine.startsWith("GET")){
+		if(inputLine.contains("?")){
+			inputLine = inputLine.substring(inputLine.indexOf("?")+1);
+			splitLine=inputLine.split("\\?");
+			for(int i = 0; i<splitLine.length;i++){
+				splitParam=splitLine[i].split("=");
+				splitParam[1] =splitParam[1].substring(0, splitParam[1].lastIndexOf(" "));
+				params.put(splitParam[0], splitParam[1]);
+			}
+			
 			
 		}
-		
-		return null;
+		return params;
 	}
 	
+	
+
 	private String replaceCustomTags(String originalContents) throws IOException {
 		// Scan through the original contents. All tags should be checked.
 		// A tag that has been defined as a class in the TAG_PATH will be
@@ -309,7 +324,13 @@ public class ClientServingThread implements Runnable{
 		return htmlCode;
 	}
 	
-	
+	private void out(String o) {
+		System.out.println(o);
+	}
+	private void out(int o) {
+		System.out.println(o);
+		
+	}
 	
 	public enum RequestType { GET, POST }
 
