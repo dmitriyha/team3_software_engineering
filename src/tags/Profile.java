@@ -11,9 +11,9 @@ import Database.UserDatabase;
 
 public class Profile {
 	private Path picture;
-	private String[] displayName;
+	private String displayName;
 	private Date DoB = new Date();
-	private Interest[] interests;
+	private ArrayList<Interest> interests;
 	private Interest preferences;
 	private ArrayList<Update> updates = new ArrayList<Update>();
 	//sexual preference
