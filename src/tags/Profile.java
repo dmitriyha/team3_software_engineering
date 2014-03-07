@@ -27,6 +27,7 @@ public class Profile {
 		
 		String content="add HTML profile implementation here<br>\n";
 		
+		
 		content += UserDatabase.get().getByName(pageParameters.get("user"));
 		
 		return new String(content);

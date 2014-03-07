@@ -189,9 +189,18 @@ public class ClientServingThread implements Runnable{
 		if(inputLine.contains("?")){
 			inputLine = inputLine.substring(inputLine.indexOf("?")+1);
 			splitLine=inputLine.split("\\?");
+			if(splitLine[0].contains("&")){
+				splitLine=splitLine[0].split("&");
+			}
 			for(int i = 0; i<splitLine.length;i++){
+				
+				
 				splitParam=splitLine[i].split("=");
-				splitParam[1] =splitParam[1].substring(0, splitParam[1].lastIndexOf(" "));
+				out(splitParam[1]);
+				
+				if (splitParam[1].contains(" ")){
+					splitParam[1] =splitParam[1].substring(0,splitParam[1].lastIndexOf(" "));
+				}
 				params.put(splitParam[0], splitParam[1]);
 			}
 			
