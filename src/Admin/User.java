@@ -1,6 +1,9 @@
 package Admin;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import matches.Match;
 import misc.Interest;
@@ -15,7 +18,7 @@ public class User {
 	private Subscription subscription;
 	//password
 	//email
-	//private boolean signedIn;
+	private String authToken = "-1";
 	
 	
 	/**
@@ -43,5 +46,27 @@ public class User {
 	 */
 	public String getUsername() {
 		return username;
+	}
+	
+	public String getToken(){
+		if(authToken.equals("-1")){
+			Calendar cal=Calendar.getInstance();
+			Date date = cal.getTime();
+			
+			StringBuilder hex = new StringBuilder();
+	        
+			
+	        for (int i=0; i < username.length(); i++) {
+	            hex.append(Integer.toHexString(username.charAt(i)));
+	            
+	            
+	        }       
+	        hex.append(Long.toHexString(date.getTime()));
+	        return hex.toString();
+		}
+		else{
+			return authToken;
+		}
+		
 	}
 }
