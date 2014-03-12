@@ -1,4 +1,4 @@
-package tags;
+package classesToBeCalledByHttp;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,14 +21,14 @@ public class Profile {
 	// preferences in a partner
 	
 	public static String show(	RequestType requestType,
-								Map<String, String> requestParameters, 
+								Map<String, String> headerData, 
 								Map<String, String> formParameters, 
-								Map<String, String> pageParameters) {
+								Map<String, String> methodAndParameters) {
 		
 		String content="add HTML profile implementation here<br>\n";
 		
 		
-		content += UserDatabase.get().getByName(pageParameters.get("user"));
+		content += UserDatabase.get().getByName(methodAndParameters.get("user"));
 		
 		return new String(content);
 		

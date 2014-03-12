@@ -56,7 +56,9 @@ public class MainListenerThread implements Runnable{
 		//while(!stop){
 			try {
 				while(!stop){
+					
 					new ClientServingThread(socket.accept(), users);
+					System.out.println("here");
 				}
 				
 			} catch ( IOException e) {

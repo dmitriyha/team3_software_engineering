@@ -3,19 +3,24 @@ team3_software_engineering
 
 This git repository is for the Inholland software engineering course in term 3, 2014
 
-Overview for first official commit
-==================================
+Overview of changes
+===================
 
--moved all files into one repo
+-reworked the http protocol parsing to function more like a client server, instead of a web app
 
--added web API for the profile class by making it a tag class (the class itself needs to be developed further).
-currently called by `http://localhost:9090/profile?user="Username here"` as a GET request from your browser.
+- now NOT meant to be a web app
 
--added a "global" database class, called by `UserDatabase.get().//method name here`
+- HTML folder removed
+
+New API
+=======
+
+'http://localhost:9090/ClassToBecalled?method=methodName&param1name=value&param2name=value'
 
 
-Notes
-=====
+What needs to be done
+=====================
 
-as the profile class is now a static tag class, gets for the database class must be added. Also, I moved the html folder into the 
-a HTML folder into the repo for accessibility and development purposes.
+-the UI
+
+-All of the relevant classes to the server

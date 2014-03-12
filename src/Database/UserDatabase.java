@@ -13,11 +13,13 @@ public class UserDatabase {
 	public static UserDatabase get() { return self; }
 	
 	ArrayList<User> users = new ArrayList<User>();
+	ArrayList<String> passwords =new ArrayList<String>();
 	
 	public UserDatabase(){
 		users.add(new User("SomeOne", new ArrayList<Message>() ,new ArrayList<Update>(), new ArrayList<Match>(), new Subscription()));
+		passwords.add("1234");
 		users.add(new User("SomeOther", new ArrayList<Message>() ,new ArrayList<Update>(), new ArrayList<Match>(), new Subscription()));
-		
+		passwords.add("4321");
 	}
 	
 	/**checks for the param name from the database, if not found, return null
@@ -33,11 +35,26 @@ public class UserDatabase {
 				return name;
 			}
 		}
-		return null;
+		return "null";
 	}
 	
-	public void add(String name) {
+	public void add(String name, String password) {
 		users.add(new User(name, new ArrayList<Message>() ,new ArrayList<Update>(), new ArrayList<Match>(), new Subscription()));
+		
+		passwords.add(password);
+	}
+	
+	public boolean validate(String name, String password){
+		for(int i=0; i < users.size(); i++){
+			
+			if(name.equals(users.get(i).getUsername())){
+				if(passwords.get(i).equals(password)){
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 }
