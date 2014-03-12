@@ -24,13 +24,15 @@ import java.util.regex.Pattern;
 import Database.UserDatabase;
 
 public class ClientServingThread implements Runnable{
-
-	private static final String HTML_PATH = "HTML";
-	private Map<String, String> requestParameters = new HashMap<>();
+	
+	private Map<String, String> headerData = new HashMap<>();//header data
 	private Map<String, String> formParameters = new HashMap<>();
-	private Map<String, String> pageParameters = new HashMap<>();
+	private Map<String, String> methodAndParameters = new HashMap<>();//the method and all parameters
 	RequestType req;
-	private static final String TAG_PATH = "tags";
+	private static final String TAG_PATH = "classesToBeCalledByHttp";
+	
+	
+	String clazz="";
 	
 	private Socket socket=null;
 	// This class handles the direct communication with a client
@@ -60,32 +62,37 @@ public class ClientServingThread implements Runnable{
 			BufferedReader reader= new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
 			
-			
+			//out(reader);
 			// Read the first line and determine whether it's a POST or GET
 			String line= reader.readLine();
 			req = getRequestType(line);
 			
 			// Still from the first line, read the file requested. 
-			Path path = getRequestedFile(line);
+			clazz = getRequestedClass(line);
 			
 			// Still from the first line,  read the GET parameters (if any)
-			pageParameters=getGetParameters(line);
+			methodAndParameters=getGetParameters(line);
 			
 			// Read the (general) request parameters and put them in the Map
-			requestParameters=getRequestParameters(reader);
+			headerData=getheaderData(reader);
 			
 			// We gathered the basic information (GET parameters will  be added later)
 			// Read the requested file and put it in a StringBuffer for further processing
-			String file = readRequestedFile(path);
+			//String file = readRequestedFile(path);
 			
 			// Now process the buffer. Search through it and replace all custom tags
-			file=replaceCustomTags(file);
+			String file=replaceCustomTags(clazz);
 			
 			// Prepend the HTTP header
 			String ans=prependHTTPHeader(file);
 			
 			// Write the answer to the client
 			writeAnswer(writer,ans);
+			String lol="";
+//			for(lol=reader.readLine();;lol=reader.readLine()){
+//				out(lol);
+//			}
+			
 			
 			// Implement error handling
 
@@ -96,8 +103,8 @@ public class ClientServingThread implements Runnable{
 			try {
 				socket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 			}
 			
 		}
@@ -119,7 +126,7 @@ public class ClientServingThread implements Runnable{
 		}
 	}
 	
-	private Path getRequestedFile(String inputLine) {
+	private String getRequestedClass(String inputLine) {
 		//  Gets the name of the  requested file from the first line of the header
 		// This will require some clever manipulation of the string using substrings
 		// Remember to take ? and spaces into account
@@ -131,14 +138,13 @@ public class ClientServingThread implements Runnable{
 		}
 		inputLine=inputLine.replaceAll("%20"," ");
 		inputLine=inputLine.replaceAll("/", "\\\\");
-		inputLine=HTML_PATH+"\\"+inputLine;
-		if(!inputLine.contains(".html")){
-			inputLine=inputLine + ".html";
-		}
-		return Paths.get(inputLine);
+		
+		//out(inputLine);
+		
+		return inputLine;
 	}
 	
-	private Map<String, String> getRequestParameters(BufferedReader in) throws IOException {
+	private Map<String, String> getheaderData(BufferedReader in) throws IOException {
 		// Read the (general) request parameters and put them in the Map
 		// Again, use some clever substringing, in this case on the character : to achieve this
 		Map<String, String> result = new HashMap<>();
@@ -147,34 +153,6 @@ public class ClientServingThread implements Runnable{
 			result.put(s.substring(0, s.indexOf(": ")), s.substring(s.indexOf(": ")+2));
 		}
 		return result;
-	}
-	
-	private String readRequestedFile(Path requestedFile) {
-		// Reads the requested file. If it cannot be read, instead return a simple "File not found" String
-		// In a next iteration, decent error handling will be added
-		StringBuffer result = new StringBuffer();
-		BufferedReader file =null;
-		try {
-			file =new BufferedReader(new FileReader(requestedFile.toString()));
-			String s = "";
-			try {
-				while((s=file.readLine()) != null){
-					result.append(s+"\n");
-				}
-			} catch (IOException e) {
-			}
-		} catch (FileNotFoundException e) {
-			result.append("File not found");
-		}finally{
-			try {
-				if (file!=null){
-					file.close();
-				}
-			} catch (IOException e) {
-			}
-		}
-		
-		return new String(result);
 	}
 	
 	private Map<String, String> getGetParameters(String inputLine) {
@@ -196,7 +174,6 @@ public class ClientServingThread implements Runnable{
 				
 				
 				splitParam=splitLine[i].split("=");
-				out(splitParam[1]);
 				
 				if (splitParam[1].contains(" ")){
 					splitParam[1] =splitParam[1].substring(0,splitParam[1].lastIndexOf(" "));
@@ -228,29 +205,48 @@ public class ClientServingThread implements Runnable{
 		File f =new File (resource.getFile());
 		File[] fi=f.listFiles();
 		
-		String pattern="\\<"+fi[0].getName().substring(0, fi[0].getName().indexOf(".class"))+".*?\\>";
+		//String noWhitespaceTag= tag.replaceAll(" ", "");
+		String className = clazz;
+		String methodName = methodAndParameters.get("method");
 		
-		try{
-			int in = 1;
-			while(true){
-				pattern=pattern+"|\\<"+fi[in].getName().substring(0, fi[in].getName().indexOf(".class"))+".*?\\>";
-				in++;
-			}
-		}catch (ArrayIndexOutOfBoundsException e){
-			//out(pattern);
+		
+		String tag ="error";
+		
+		Class[] params= new Class[]{RequestType.class,Map.class,Map.class,Map.class};
+		Object[] objs = new Object[]{req,headerData,formParameters,methodAndParameters};
+		String htmlCode="";
+		try {
+			Class<?> c=Class.forName(TAG_PATH+"."+className);
+			Method m =c.getMethod(methodName, params);
+			
+			htmlCode=(String) m.invoke(methodName, objs);
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return tag;
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			return tag;
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			return tag;
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			return tag;
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "an exeption was thrown in "+className;
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			return "class\""+className+"\" was recognised, but \""+methodName+"\" method was not!";
 		}
-		
-		Matcher matcher = Pattern.compile(pattern).matcher(originalContents);
-		
-		String result=originalContents;
-		while (matcher.find()) {
-			result=result.replaceAll(matcher.group(), processTag(matcher.group())) ;
-		}
+
 		
 		
 		
-		
-		return result;
+		return htmlCode;
 	}
 	
 	
@@ -267,8 +263,7 @@ public class ClientServingThread implements Runnable{
 		result.append("Server: TinyApplicationServer v0.1" + System.getProperty("line.separator"));
 		result.append("Last-Modified: " + new Date().toString() + System.getProperty("line.separator"));
 		result.append("Content-Length: " + originalContents.length() + System.getProperty("line.separator"));
-		result.append("Content-Type: text/html" + System.getProperty("line.separator"));
-		result.append("Connection: Closed" + System.getProperty("line.separator"));
+		result.append("Content-Type: application/json" + System.getProperty("line.separator"));
 		result.append(System.getProperty("line.separator"));
 		result.append(originalContents);
 		return new String(result);
@@ -283,63 +278,17 @@ public class ClientServingThread implements Runnable{
 		out.flush();
 	}
 	
-	private String processTag(String tag) {
-		
-		String noWhitespaceTag= tag.replaceAll(" ", "");
-		String className = noWhitespaceTag.substring(1, noWhitespaceTag.indexOf("action"));
-		String methodName = noWhitespaceTag.substring(noWhitespaceTag.indexOf("action=\"")+8,noWhitespaceTag.lastIndexOf("\""));
-		
-		Class[] params= new Class[]{RequestType.class,Map.class,Map.class,Map.class};
-		Object[] objs = new Object[]{req,requestParameters,formParameters,pageParameters};
-		String htmlCode="";
-		try {
-			Class<?> c=Class.forName("tags."+className);
-			Method m =c.getMethod(methodName, params);
-			
-			htmlCode=(String) m.invoke(methodName, objs);
-			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			return tag;
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			return tag;
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			return tag;
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			return tag;
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			return "an exeption was thrown in "+className;
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			return "class\""+className+"\" was recognised, but \""+methodName+"\" method was not!";
-		}
-
-		
-		// For development's sake, let's assume no parameters. Instantiate the class.
-		// Then call the action (the method)
-		// Implement decent error handling (security problems, tag does not exit etc)
-		
-		// Solving it this way earns you part of the points. For the real kicker:
-		
-		// Add using parameters to this method
-		// As an few key tags, Time.class, Parameters.class and Get.class have been provided
-		// Make the application server use them correctly
-		
-
-		return htmlCode;
-	}
 	
-	private void out(String o) {
-		System.out.println(o);
-	}
-	private void out(int o) {
-		System.out.println(o);
-		
-	}
+//	private void out(String inputLine) {
+//		
+//		System.out.println(inputLine);
+//			
+//		
+//	}
+//	private void out(int o) {
+//		System.out.println(o);
+//		
+//	}
 	
 	public enum RequestType { GET, POST }
 
