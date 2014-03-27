@@ -175,6 +175,7 @@ public class ClientServingThread implements Runnable{
 				
 				splitParam=splitLine[i].split("=");
 				
+				
 				if (splitParam[1].contains(" ")){
 					splitParam[1] =splitParam[1].substring(0,splitParam[1].lastIndexOf(" "));
 				}

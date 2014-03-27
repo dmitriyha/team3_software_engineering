@@ -19,6 +19,8 @@ public class SignIn {
 			JSONObject obj=new JSONObject();
 			obj.put("AuthToken",token);
 			
+			//put token into database
+			
 			return new String(obj.toJSONString());
 		}
 		else{

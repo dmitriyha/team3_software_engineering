@@ -19,12 +19,15 @@ public class User {
 	private String email;
 	private String screenName;
 	private String authToken = "-1";
-	
-	
+	String location;
+	String gender;
+	String interestedIn;
+	String pass;
 	/**
 	 * The constructor for the class User
 	 * 
 	 * @param username specify the username
+	 * @param passWord 
 	 * @param specify email
 	 * @param specify screen name
 	 * @param inbox pass the inbox of the user to this class if the user is newm use the new call
@@ -36,10 +39,13 @@ public class User {
 	public User(String username,
 				String email,
 				String screenName,
-				ArrayList<Message> inbox,
+				String passWord, ArrayList<Message> inbox,
 				ArrayList<Update> notifications,
 				ArrayList<Match> matches,
-				Subscription subscription){
+				Subscription subscription,
+				String location,
+				String gender,
+				String interestedIn){
 		this.username=username;
 		this.inbox=inbox;
 		this.notifications=notifications;
@@ -47,6 +53,10 @@ public class User {
 		this.subscription=subscription;
 		this.email=email;
 		this.screenName=screenName;
+		this.location=location;
+		this.gender=gender;
+		this.interestedIn=interestedIn;
+		pass=passWord;
 	}
 	
 	/**Gets the username for this user
@@ -55,6 +65,22 @@ public class User {
 	 */
 	public String getUsername() {
 		return username;
+	}
+	
+	public String getSreenName(){
+		return screenName;
+	}
+	
+	public String getLoc() {
+		return location;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+	
+	public String getOrientation() {
+		return interestedIn;
 	}
 	
 	public String getToken(){
@@ -71,11 +97,21 @@ public class User {
 	            
 	        }       
 	        hex.append(Long.toHexString(date.getTime()));
-	        return hex.toString();
+	        authToken=hex.toString();
+	        return authToken;
 		}
 		else{
 			return authToken;
 		}
 		
+	}
+	
+	public void clearToken(){
+		authToken="-1";
+	}
+
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return pass;
 	}
 }
