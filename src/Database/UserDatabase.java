@@ -16,9 +16,9 @@ public class UserDatabase {
 	
 	public UserDatabase(){
 		users.add(new User("SomeOne", "1@2", "Some One","1234", new ArrayList<Message>() ,new ArrayList<Update>(), new ArrayList<Match>(), new Subscription(),"Amsterdam", "Male", "Women"));
-		users.add(new User("SomeOther", "12@3", "Some Other","4321", new ArrayList<Message>() ,new ArrayList<Update>(), new ArrayList<Match>(), new Subscription(), "Amsterdam", "Male", "Women"));
-		users.add(new User("Risa","elit@diamProindolor.com","Oren Hartman","HLT40MYV0BC",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Latrobe","Female","Men"));
-		users.add(new User("Kelly","sociis.natoque.penatibus@aliquam.edu","Aurora Roach","RZN17YKE6WE",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Corinth","Male","Women"));
+		users.add(new User("SomeOther", "12@3", "Some Other","4321", new ArrayList<Message>() ,new ArrayList<Update>(), new ArrayList<Match>(), new Subscription(), "Amsterdam", "Male", "Men"));
+		users.add(new User("Risa","elit@diamProindolor.com","Oren Hartman","HLT40MYV0BC",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Amsterdam","Female","Men"));
+		users.add(new User("Kelly","sociis.natoque.penatibus@aliquam.edu","Aurora Roach","RZN17YKE6WE",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Amsterdam","Male","Women"));
 		users.add(new User("Jorden","Nulla@Etiamligulatortor.edu","Kane Oneil","LUE58YFV4IO",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Bellingham","Male","Men"));
 		users.add(new User("Colleen","lacus.varius@dictumeu.ca","Thor Keith","FXG23YSE1GB",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Louisville","Male","Women"));
 		users.add(new User("Trevor","a.aliquet@Phasellusdapibusquam.edu","Clarke Herrera","ZQP95CDK3LV",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Irvine","Female","Women"));
@@ -51,7 +51,7 @@ public class UserDatabase {
 		users.add(new User("Britanney","Integer.vulputate.risus@eu.com","Logan Whitfield","SQX60WVY8EP",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Chelsea","Female","Men"));
 		users.add(new User("Helen","Duis.cursus@euismod.edu","Deacon Reid","XKL30KCR3ST",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Ansonia","Male","Women"));
 		users.add(new User("Victoria","nisi.Cum.sociis@sem.com","Jonas Guthrie","BPI18CAH5KH",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Effingham","Female","Men"));
-		users.add(new User("Igor","aliquet.diam.Sed@odiovel.org","Hasad Fox","DMF59PQP9TL",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Mayagüez","Female","Women"));
+		users.add(new User("Igor","aliquet.diam.Sed@odiovel.org","Hasad Fox","DMF59PQP9TL",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Amsterdam","Female","Women"));
 		users.add(new User("Jolie","Suspendisse.non@Sedpharetrafelis.org","Cathleen Lowe","ZQZ60HTM5IM",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Appleton","Male","Women"));
 		users.add(new User("Alika","neque.Sed@loremsit.edu","Arden Fowler","EVD79RUP6KQ",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"La Puente","Female","Men"));
 		users.add(new User("Lani","pretium.aliquet@Nullatempor.edu","Malcolm Page","IFJ52RSC8NB",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Cape May","Male","Women"));
@@ -79,23 +79,23 @@ public class UserDatabase {
 		users.add(new User("Ezra","enim.Etiam.gravida@semmagna.com","Madeline Hardin","DLC09TBR6DN",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Brigham City","Female","Men"));
 		users.add(new User("Ann","orci.Donec@Proin.org","Linda Alford","GFR68BUH1UF",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Meadville","Female","Women"));
 		users.add(new User("Jessamine","amet.massa@lectusrutrum.ca","Marshall Solomon","AYZ75ZAT6RP",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Trenton","Female","Women"));
-		users.add(new User("Scarlett","nisl@aliquetvel.com","Simon Leach","SLA60WRA8LO",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Little Rock","Female","Men"));
+		users.add(new User("Scarlett","nisl@aliquetvel.com","Simon Leach","SLA60WRA8LO",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Amsterdam","Female","Men"));
 		users.add(new User("Dakota","elit.fermentum@purus.ca","Xanthus Aguirre","XJE32SAR7RT",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"La Mirada","Male","Women"));
 		users.add(new User("Emma","parturient@dignissimlacusAliquam.org","Aline Walker","KEU31UFM9OR",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Hutchinson","Female","Women"));
 		users.add(new User("Aiko","euismod.et@nuncrisus.com","Rajah Nielsen","YPA56YYU7GX",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Longview","Female","Women"));
 		users.add(new User("Chase","orci.in@eratvolutpat.org","Luke Knight","LCY68PQL6DB",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Gaithersburg","Female","Men"));
 		users.add(new User("Shelly","id.mollis.nec@eratneque.edu","Kirby Houston","RDI27VQW7IS",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Albany","Female","Women"));
-		users.add(new User("Leonard","ac@euultricessit.ca","Quentin Gardner","YDE16QWV9BP",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Mayagüez","Female","Women"));
+		users.add(new User("Leonard","ac@euultricessit.ca","Quentin Gardner","YDE16QWV9BP",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Amsterdam","Female","Women"));
 		users.add(new User("Uma","et.magnis.dis@acurnaUt.org","Kasper Cook","QLS41AKI2PA",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Rock Springs","Female","Women"));
 		users.add(new User("Kaye","amet@interdum.edu","Yvette Callahan","JXE94JOW0ZB",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Forrest City","Male","Women"));
 		users.add(new User("Brenna","diam.eu@mattisvelitjusto.org","Hilary Bruce","OMH54LYJ5WU",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Appleton","Female","Men"));
 		users.add(new User("Brittany","ullamcorper.magna.Sed@sitamet.org","Kiona Daniels","TLD48GZH5NT",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Moore","Female","Men"));
 		users.add(new User("Kerry","elit.pretium.et@Donecegestas.com","Nero Swanson","LDR96XSC0DY",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Stanton","Male","Men"));
-		users.add(new User("Shannon","egestas@urnajusto.edu","Yael Burgess","POF82CIJ7GB",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Port Arthur","Female","Women"));
+		users.add(new User("Shannon","egestas@urnajusto.edu","Yael Burgess","POF82CIJ7GB",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Amsterdam","Female","Women"));
 		users.add(new User("Aimee","Aliquam@ligulaDonecluctus.com","Olympia Soto","LEG41JBR5YY",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Lakewood","Male","Women"));
 		users.add(new User("Cairo","Quisque.fringilla@sagittisplaceratCras.org","Stewart Oneill","ZTL34ITQ5FU",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Missoula","Female","Women"));
 		users.add(new User("Dorothy","Curabitur.vel@semelitpharetra.edu","Tatiana Hobbs","OTY16QEK1NW",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Anchorage","Female","Women"));
-		users.add(new User("Zeph","faucibus.orci.luctus@adipiscingfringilla.edu","September Hancock","UPI84TJG7OW",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Lawrence","Female","Women"));
+		users.add(new User("Zeph","faucibus.orci.luctus@adipiscingfringilla.edu","September Hancock","UPI84TJG7OW",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Amsterdam","Female","Women"));
 		users.add(new User("Upton","dolor.dolor@massarutrummagna.ca","Victoria Richardson","QNS73CNY4IL",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Valparaiso","Female","Men"));
 		users.add(new User("Emily","eleifend@NuncmaurisMorbi.ca","Noble Santos","PQV55PDC3XL",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"Seaford","Male","Men"));
 		users.add(new User("Adrian","aliquet.molestie@DonectinciduntDonec.edu","Dale Reese","WAB87WKJ6XZ",new ArrayList<Message>(),new ArrayList<Update>(),new ArrayList<Match>(),new Subscription(),"New Kensington","Male","Men"));
@@ -175,6 +175,21 @@ public class UserDatabase {
 		else{
 			return null;
 		}
+	}
+
+	public User getUser(String name) {
+		for(int i=0; i < users.size(); i++){
+			if(name.equals(users.get(i).getUsername())){
+				
+				return users.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<User> getAll(){
+		return users;
+		
 	}
 	
 }

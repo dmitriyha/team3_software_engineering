@@ -27,17 +27,19 @@ public class ProfileSend {
 	private ArrayList<Interest> interests;
 	private Interest preferences;
 	private ArrayList<Update> updates = new ArrayList<Update>();
+	static String base64EncodedMan = convertImg("img\\man.jpg");
+	static String base64EncodedWoman = convertImg("img\\woman.jpg");
 	//sexual preference
 	//gender
 	// preferences in a partner
+	
 	
 	public static String show(	RequestType requestType,
 								Map<String, String> headerData, 
 								Map<String, String> formParameters, 
 								Map<String, String> methodAndParameters) {
 		
-		String base64EncodedMan = convertImg("img\\man.jpg");
-		String base64EncodedWoman = convertImg("img\\woman.jpg");
+		
 		
 		
 		
@@ -54,11 +56,9 @@ public class ProfileSend {
 			obj.put("gender", u.getGender());
 			
 			if(u.getGender().equals("Male")){
-				
 				obj.put("image", base64EncodedMan);
 			}
 			else if(u.getGender().equals("Female")){
-				
 				
 				obj.put("image", base64EncodedWoman);
 			}
@@ -67,6 +67,31 @@ public class ProfileSend {
 			u= UserDatabase.get().getUser(i);
 		}
 		
+		return new String(jsonToSend);
+		
+	}
+	
+	public static String getUser(RequestType requestType,
+			Map<String, String> headerData, 
+			Map<String, String> formParameters, 
+			Map<String, String> methodAndParameters){
+				
+		User u= UserDatabase.get().getUser(methodAndParameters.get("username"));
+		JSONObject obj=new JSONObject();
+		obj.put("user",u.getUsername());
+		obj.put("interestedIn",u.getOrientation());
+		obj.put("screenName", u.getSreenName());
+		obj.put("location", u.getLoc());
+		obj.put("gender", u.getGender());
+		
+		if(u.getGender().equals("Male")){
+			obj.put("image", base64EncodedMan);
+		}
+		else if(u.getGender().equals("Female")){
+			
+			obj.put("image", base64EncodedWoman);
+		}
+		String jsonToSend=obj.toJSONString();
 		return new String(jsonToSend);
 		
 	}

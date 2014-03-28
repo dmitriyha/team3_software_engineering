@@ -59,6 +59,10 @@ public class User {
 		pass=passWord;
 	}
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**Gets the username for this user
 	 * 
 	 * @return this class' username parameter
@@ -113,5 +117,21 @@ public class User {
 	public String getPassword() {
 		// TODO Auto-generated method stub
 		return pass;
+	}
+	
+	public void saveMessage(String from,String msg) {
+		inbox.add(new Message(from,msg));
+	}
+	
+	public int getMsgSize(){
+		return inbox.size();
+	}
+	
+	public Message getMsg(int i){
+		System.out.println(i);
+		if (i<inbox.size() && (i>-1)){
+			return inbox.get(i);
+		}
+		return null;
 	}
 }

@@ -65,6 +65,9 @@ public class ClientServingThread implements Runnable{
 			//out(reader);
 			// Read the first line and determine whether it's a POST or GET
 			String line= reader.readLine();
+			
+//			System.out.println(line);
+			
 			req = getRequestType(line);
 			
 			// Still from the first line, read the file requested. 
@@ -234,6 +237,7 @@ public class ClientServingThread implements Runnable{
 			return tag;
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return tag;
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
